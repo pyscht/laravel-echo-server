@@ -63,7 +63,7 @@ export class Channel {
             if (this.isClientEvent(data.event) &&
                 this.isPrivate(data.channel) &&
                 this.isInChannel(socket, data.channel)) {
-                this.io.sockets.connected[socket.id]
+                this.io.sockets[socket.id]
                     .broadcast.to(data.channel)
                     .emit(data.event, data.channel, data.data);
             }
@@ -123,7 +123,7 @@ export class Channel {
                 Log.error(error.reason);
             }
 
-            this.io.sockets.to(socket.id)
+            this.io.sockets[socket.id]
                 .emit('subscription_error', data.channel, error.status);
         });
     }

@@ -165,7 +165,7 @@ export class EchoServer {
      * Return a channel by its socket id.
      */
     find(socket_id: string): any {
-        return this.server.io.sockets.connected[socket_id];
+        return this.server.io.sockets[socket_id];
     }
 
     /**
@@ -204,6 +204,8 @@ export class EchoServer {
      */
     onConnect(): void {
         this.server.io.on('connection', socket => {
+            Log.info('connect');
+            socket.onAny(() => Log.info('event'));
             this.onSubscribe(socket);
             this.onUnsubscribe(socket);
             this.onDisconnecting(socket);
