@@ -204,8 +204,6 @@ export class EchoServer {
      */
     onConnect(): void {
         this.server.io.on('connection', socket => {
-            Log.info('connect');
-            socket.onAny(() => Log.info('event'));
             this.onSubscribe(socket);
             this.onUnsubscribe(socket);
             this.onDisconnecting(socket);
